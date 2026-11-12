@@ -1,0 +1,59 @@
+<div class="container mt-4">
+  <h2>Modificar Repartidor</h2>
+
+  {{#if error}}
+    <div class="alert alert-danger">{{message}}</div>
+  {{/if}}
+
+  <form action="/admin/repartidores/modificar" method="POST" enctype="multipart/form-data">
+    <input type="hidden" name="id" value="{{repartidor.id}}">
+    <input type="hidden" name="imagen_actual" value="{{repartidor.imagen}}">
+
+    <div class="mb-3">
+      <label class="form-label">Nombre *</label>
+      <input type="text" name="nombre" class="form-control" value="{{repartidor.nombre}}" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Zona</label>
+      <input type="text" name="zona" class="form-control" value="{{repartidor.zona}}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Vehículo</label>
+      <select name="vehiculo" class="form-control">
+        <option value="Moto" {{#if (eq repartidor.vehiculo "Moto")}}selected{{/if}}>Moto</option>
+        <option value="Auto" {{#if (eq repartidor.vehiculo "Auto")}}selected{{/if}}>Auto</option>
+        <option value="Bicicleta" {{#if (eq repartidor.vehiculo "Bicicleta")}}selected{{/if}}>Bicicleta</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Teléfono</label>
+      <input type="text" name="telefono" class="form-control" value="{{repartidor.telefono}}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rating</label>
+      <input type="number" step="0.1" min="1" max="5" name="rating" class="form-control" value="{{repartidor.rating}}">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Imagen actual</label><br>
+      {{#if repartidor.imagen}}
+        <img src="{{repartidor.imagen}}" width="100" class="mb-2" style="border-radius: 50%;">
+        <br>
+      {{/if}}
+      <input type="file" name="imagen" class="form-control" accept="image/*">
+      <small class="text-muted">Dejá vacío si no querés cambiar la imagen</small>
+    </div>
+
+    <div class="mb-3 form-check">
+      <input type="checkbox" name="disponible" class="form-check-input" id="disponible" {{#if repartidor.disponible}}checked{{/if}}>
+      <label class="form-check-label" for="disponible">Disponible</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+    <a href="/admin/repartidores" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>

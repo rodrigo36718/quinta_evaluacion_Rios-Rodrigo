@@ -112,7 +112,7 @@ h2 {
 .login input[type="password"] {
   background: #fff;
   border-color: #bbb;
-  color: #555;
+  color: #fffbfb;
 }
 
 /* Text fields' focus effect */
@@ -129,7 +129,7 @@ h2 {
 }
 
 .login input[type="submit"]:hover {
-  background: #17c;
+  background: rgb(248, 249, 250);
 }
 
 /* Buttons' focus effect */

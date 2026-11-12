@@ -1,36 +1,23 @@
 var pool = require('./bd');
 var bcrypt = require('bcrypt');
 
-// Buscar usuario por email (para login y para verificar si ya existe)
-async function getUsuarioByEmail(email) {
-  try {
-    var query = 'SELECT * FROM usuarios WHERE email = ? LIMIT 1';
-    var rows = await pool.query(query, [email]);
-    return rows[0];
-  } catch (error) {
-    console.log(error);
-    throw error;
-  }
-}
-
-// Registrar nuevo usuario
+// Registrar usuario
 async function registrarUsuario(usuario) {
   try {
-    // Hashear la contraseña
     const salt = await bcrypt.genSalt(10);
     const passwordHash = await bcrypt.hash(usuario.password, salt);
 
-    var obj = {
+    const obj = {
       nombre: usuario.nombre,
       apellido: usuario.apellido,
       email: usuario.email,
       password: passwordHash,
-      rol: usuario.rol || 'cliente',
-      telefono: usuario.telefono || null
+      telefono: usuario.telefono || null,
+      rol: usuario.rol || 'cliente'
     };
 
-    var query = 'INSERT INTO usuarios SET ?';
-    var rows = await pool.query(query, [obj]);
+    const query = 'INSERT INTO usuarios SET ?';
+    const rows = await pool.query(query, [obj]);
     return rows;
   } catch (error) {
     console.log(error);
@@ -38,19 +25,26 @@ async function registrarUsuario(usuario) {
   }
 }
 
-// Validar login (compara password hasheada)
+// Buscar por email
+async function getUsuarioByEmail(email) {
+  try {
+    const query = 'SELECT * FROM usuarios WHERE email = ? LIMIT 1';
+    const rows = await pool.query(query, [email]);
+    return rows[0];
+  } catch (error) {
+    console.log(error);
+    throw error;
+  }
+}
+
+// Validar login
 async function validarLogin(email, password) {
   try {
-    var usuario = await getUsuarioByEmail(email);
-    if (!usuario) {
-      return null; // No existe el email
-    }
+    const usuario = await getUsuarioByEmail(email);
+    if (!usuario) return null;
 
-    // Comparar la contraseña ingresada con la hasheada
     const passwordValida = await bcrypt.compare(password, usuario.password);
-    if (!passwordValida) {
-      return null; // Contraseña incorrecta
-    }
+    if (!passwordValida) return null;
 
     // No devolver la password
     delete usuario.password;
@@ -64,8 +58,8 @@ async function validarLogin(email, password) {
 // Traer usuario por ID
 async function getUsuarioById(id) {
   try {
-    var query = 'SELECT id, nombre, apellido, email, rol, telefono, created_at FROM usuarios WHERE id = ?';
-    var rows = await pool.query(query, [id]);
+    const query = 'SELECT id, nombre, apellido, email, telefono, rol, created_at FROM usuarios WHERE id = ?';
+    const rows = await pool.query(query, [id]);
     return rows[0];
   } catch (error) {
     console.log(error);
@@ -74,8 +68,8 @@ async function getUsuarioById(id) {
 }
 
 module.exports = {
-  getUsuarioByEmail,
   registrarUsuario,
+  getUsuarioByEmail,
   validarLogin,
   getUsuarioById
 };

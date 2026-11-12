@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Repartidores</h2>
+    <a href="/admin/repartidores/agregar" class="btn btn-success">+ Agregar Repartidor</a>
+  </div>
+
+  <table class="table table-striped table-bordered">
+    <thead class="table-dark">
+      <tr>
+        <th>ID</th>
+        <th>Imagen</th>
+        <th>Nombre</th>
+        <th>Zona</th>
+        <th>Vehículo</th>
+        <th>Teléfono</th>
+        <th>Disponible</th>
+        <th>Rating</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each repartidores}}
+      <tr>
+        <td>{{id}}</td>
+        <td>
+          {{#if imagen}}
+            <img src="{{imagen}}" alt="{{nombre}}" width="60" height="60" style="object-fit: cover; border-radius: 50%;">
+          {{else}}
+            Sin imagen
+          {{/if}}
+        </td>
+        <td>{{nombre}}</td>
+        <td>{{zona}}</td>
+        <td>{{vehiculo}}</td>
+        <td>{{telefono}}</td>
+        <td>{{#if disponible}}Sí{{else}}No{{/if}}</td>
+        <td>{{rating}}</td>
+        <td>
+          <a href="/admin/repartidores/modificar/{{id}}" class="btn btn-sm btn-primary">Editar</a>
+          <a href="/admin/repartidores/eliminar/{{id}}" class="btn btn-sm btn-danger" onclick="return confirm('¿Eliminar este repartidor?')">Eliminar</a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</div>

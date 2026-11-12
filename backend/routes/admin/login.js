@@ -1,41 +1,46 @@
 var express = require('express');
 var router = express.Router();
-var usuariosModel = require('./../../models/usuariosModel');
+var usuariosModel = require('../../models/usuariosModel');
 
-/* GET home page. */
 router.get('/', function (req, res, next) {
-  res.render('admin/login', { //login.hbs
-    layout: 'admin/layout'    //layout.hbs
+  res.render('admin/login', {
+    layout: 'admin/layout'
   });
 });
 
 router.get('/logout', function (req, res, next) {
   req.session.destroy();
-  res.render('admin/login', { //login.hbs
-    layout: 'admin/layout'    //layout.hbs
-  });
+  res.redirect('/admin/login');
 });
 
 router.post('/', async (req, res, next) => {
   try {
-    var usuario = req.body.usuario; //captura los datos del formulario
-    var password = req.body.password; //1234
+    var email = req.body.usuario;
+    var password = req.body.password;
 
-    var data = await usuariosModel.getUserByUsernameAndPassword(usuario, password);
+    console.log('Intentando login con:', email);
 
-    if (data != undefined) {
+    var data = await usuariosModel.validarLogin(email, password);
+
+    if (data && data.rol === 'admin') {
       req.session.id_usuario = data.id;
-      req.session.nombre = data.usuario;
-      res.redirect('/admin/novedades');
+      req.session.nombre = data.nombre;
+      console.log('Login admin exitoso');
+      res.redirect('/admin/platos');
     } else {
+      console.log('Login fallido');
       res.render('admin/login', {
         layout: 'admin/layout',
         error: true
       });
     }
   } catch (error) {
-    console.log(error);
+    console.log('Error en login:', error);
+    res.render('admin/login', {
+      layout: 'admin/layout',
+      error: true
+    });
   }
-})
+});
 
 module.exports = router;

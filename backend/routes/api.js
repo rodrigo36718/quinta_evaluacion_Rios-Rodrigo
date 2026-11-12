@@ -1,22 +1,43 @@
 var express = require('express');
 var router = express.Router();
-var novedadesModel = require('../models/novedadesModel');
+var platosModel = require('../models/platosModel');
+var repartidoresModel = require('../models/repartidoresModel');
 var usuariosModel = require('../models/usuariosModel');
-var cloudinary = require('cloudinary').v2;
-var nodemailer = require('nodemailer');
 var jwt = require('jsonwebtoken');
-var bcrypt = require('bcrypt');
 
 // ======================
-// RUTAS DE AUTENTICACIÓN
+// PLATOS
 // ======================
+router.get('/platos', async function (req, res, next) {
+  try {
+    let platos = await platosModel.getPlatosActivos();
+    res.json(platos);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: true, message: 'Error al obtener los platos' });
+  }
+});
 
+// ======================
+// REPARTIDORES
+// ======================
+router.get('/repartidores', async function (req, res, next) {
+  try {
+    let repartidores = await repartidoresModel.getRepartidoresDisponibles();
+    res.json(repartidores);
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({ error: true, message: 'Error al obtener los repartidores' });
+  }
+});
+
+// ======================
 // REGISTRO
+// ======================
 router.post('/register', async (req, res) => {
   try {
     const { nombre, apellido, email, password, telefono } = req.body;
 
-    // Validaciones básicas
     if (!nombre || !apellido || !email || !password) {
       return res.status(400).json({
         error: true,
@@ -25,22 +46,20 @@ router.post('/register', async (req, res) => {
     }
 
     // Verificar si el email ya existe
-    const usuarioExistente = await usuariosModel.getUsuarioByEmail(email);
-    if (usuarioExistente) {
+    const existe = await usuariosModel.getUsuarioByEmail(email);
+    if (existe) {
       return res.status(400).json({
         error: true,
         message: 'El email ya está registrado'
       });
     }
 
-    // Registrar el usuario
     await usuariosModel.registrarUsuario({
       nombre,
       apellido,
       email,
       password,
-      telefono,
-      rol: 'cliente'
+      telefono
     });
 
     res.status(201).json({
@@ -57,7 +76,9 @@ router.post('/register', async (req, res) => {
   }
 });
 
+// ======================
 // LOGIN
+// ======================
 router.post('/login', async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -83,10 +104,10 @@ router.post('/login', async (req, res) => {
       {
         id: usuario.id,
         email: usuario.email,
-        rol: usuario.rol,
-        nombre: usuario.nombre
+        nombre: usuario.nombre,
+        rol: usuario.rol
       },
-      process.env.JWT_SECRET || 'carrigo_secret_key_cambiar', // poné una clave segura en el .env
+      process.env.JWT_SECRET || 'carrigo_secret_key_2025',
       { expiresIn: '7d' }
     );
 
@@ -110,64 +131,6 @@ router.post('/login', async (req, res) => {
       message: 'Error al iniciar sesión'
     });
   }
-});
-
-// ======================
-// RUTAS DE NOVEDADES / RESTAURANTES
-// ======================
-
-router.get('/novedades', async function (req, res, next) {
-  let novedades = await novedadesModel.getNovedades();
-
-  novedades = novedades.map(novedades => {
-    if (novedades.img_id) {
-      const imagen = cloudinary.url(novedades.img_id, {
-        width: 960,
-        height: 360,
-        crop: 'fill'
-      });
-      return {
-        ...novedades,
-        imagen
-      }
-    } else {
-      return {
-        ...novedades,
-        imagen: ''
-      }
-    }
-  });
-  res.json(novedades);
-});
-
-// ======================
-// CONTACTO
-// ======================
-
-router.post('/contacto', async (req, res) => {
-  const mail = {
-    to: 'arman2314@gmail.com',
-    subject: 'Contacto Web',
-    html: `${req.body.nombre} se contactó a través de la web y quiere más información a este correo: ${req.body.email}
-    <br> Además, hizo el siguiente comentario: ${req.body.mensaje}
-    <br> Su teléfono es: ${req.body.telefono}`
-  }
-
-  const transport = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: process.env.SMTP_PORT,
-    auth: {
-      user: process.env.SMTP_USER,
-      pass: process.env.SMTP_PASS
-    }
-  });
-
-  await transport.sendMail(mail);
-
-  res.status(201).json({
-    error: false,
-    message: 'Mensaje Enviado'
-  });
 });
 
 module.exports = router;

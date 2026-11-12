@@ -1,0 +1,46 @@
+<div class="container mt-4">
+  <h2>Agregar Nuevo Repartidor</h2>
+
+  {{#if error}}
+    <div class="alert alert-danger">{{message}}</div>
+  {{/if}}
+
+  <form action="/admin/repartidores/agregar" method="POST" enctype="multipart/form-data">
+    <div class="mb-3">
+      <label class="form-label">Nombre *</label>
+      <input type="text" name="nombre" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Zona</label>
+      <input type="text" name="zona" class="form-control" placeholder="Ej: Centro, Palermo...">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Vehículo</label>
+      <select name="vehiculo" class="form-control">
+        <option value="Moto">Moto</option>
+        <option value="Auto">Auto</option>
+        <option value="Bicicleta">Bicicleta</option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Teléfono</label>
+      <input type="text" name="telefono" class="form-control">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Rating</label>
+      <input type="number" step="0.1" min="1" max="5" name="rating" class="form-control" value="5.0">
+    </div>
+
+    <div class="mb-3">
+      <label class="form-label">Imagen</label>
+      <input type="file" name="imagen" class="form-control" accept="image/*">
+    </div>
+
+    <button type="submit" class="btn btn-success">Guardar Repartidor</button>
+    <a href="/admin/repartidores" class="btn btn-secondary">Cancelar</a>
+  </form>
+</div>
