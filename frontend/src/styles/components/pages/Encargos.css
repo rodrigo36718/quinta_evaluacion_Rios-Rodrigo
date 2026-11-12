@@ -1,0 +1,278 @@
+.encargos-page {
+    width: 100%;
+    background-color: #090909;
+    color: white;
+    box-sizing: border-box;
+}
+.encargos-hero {
+    width: 100%;
+    height: 300px;
+    position: relative;
+    overflow: hidden;
+}
+
+.encargos-hero img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.encargos-hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+
+    background: linear-gradient(
+        90deg,
+        rgba(0, 0, 0, 0.75),
+        rgba(0, 0, 0, 0.1)
+    );
+}
+
+.encargos-hero-content {
+    position: absolute;
+    top: 50%;
+    left: 7%;
+
+    transform: translateY(-50%);
+
+    z-index: 2;
+}
+
+.encargos-hero-content h1 {
+    font-size: 42px;
+    line-height: 1.1;
+
+    margin: 0 0 12px 0;
+}
+
+.encargos-hero-content p {
+    font-size: 17px;
+
+    max-width: 500px;
+
+    margin: 0 0 20px 0;
+
+    color: #eeeeee;
+}
+
+.encargos-hero-content button:hover {
+    background-color: #ff8a45;
+}
+.busqueda-encargos {
+    width: 100%;
+
+    padding: 25px 7% 10px;
+
+    box-sizing: border-box;
+}
+
+.busqueda-encargos-box {
+    width: 100%;
+    max-width: 1100px;
+
+    margin: 0 auto;
+
+    display: flex;
+    align-items: center;
+
+    background-color: #171717;
+
+    border: 1px solid #292929;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+}
+
+.busqueda-encargos-box input {
+    flex: 1;
+
+    background: transparent;
+
+    border: none;
+    outline: none;
+
+    color: white;
+
+    padding: 15px;
+
+    font-size: 15px;
+}
+
+.busqueda-encargos-box input::placeholder {
+    color: #999;
+}
+
+.repartidores {
+    width: 100%;
+
+    padding: 15px 7% 50px;
+
+    box-sizing: border-box;
+}
+
+.repartidores-grid {
+    display: grid;
+
+    grid-template-columns: repeat(4, 1fr);
+
+    gap: 18px;
+
+    max-width: 1200px;
+
+    margin: 0 auto;
+}
+
+
+.repartidor {
+    background-color: #151515;
+
+    border-radius: 8px;
+
+    overflow: hidden;
+
+    border: 1px solid #242424;
+
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.repartidor:hover {
+    transform: translateY(-4px);
+
+    border-color: #ff711f;
+}
+
+
+.repartidor-foto {
+    width: 100%;
+    height: 190px;
+
+    overflow: hidden;
+
+    background-color: #222;
+}
+
+.repartidor-foto img {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+
+    display: block;
+}
+
+
+.repartidor-info {
+    padding: 15px;
+}
+
+.repartidor-info h3 {
+    margin: 0 0 8px 0;
+
+    font-size: 17px;
+}
+
+.repartidor-info p {
+    margin: 5px 0;
+
+    font-size: 13px;
+
+    color: #bdbdbd;
+}
+
+
+.repartidor-bottom {
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-top: 12px;
+
+    font-size: 13px;
+
+    color: #bdbdbd;
+}
+
+.estrellas {
+    color: #ff711f;
+
+    letter-spacing: 2px;
+}
+
+.btn-elegir {
+    width: 100%;
+
+    margin-top: 13px;
+
+    padding: 11px;
+
+    border: none;
+
+    border-radius: 5px;
+
+    background-color: #ff711f;
+
+    color: white;
+
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-elegir:hover {
+    background-color: #ff8a45;
+}
+
+
+
+@media (max-width: 900px) {
+
+    .repartidores-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+}
+
+
+@media (max-width: 500px) {
+
+    .encargos-hero {
+        height: 300px;
+    }
+
+    .encargos-hero-content {
+        left: 5%;
+        right: 5%;
+    }
+
+    .encargos-hero-content h1 {
+        font-size: 30px;
+    }
+
+    .encargos-hero-content p {
+        font-size: 14px;
+    }
+
+    .busqueda-encargos {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .repartidores {
+        padding-left: 5%;
+        padding-right: 5%;
+    }
+
+    .repartidores-grid {
+        grid-template-columns: 1fr;
+    }
+
+}

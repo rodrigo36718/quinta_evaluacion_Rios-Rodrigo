@@ -1,0 +1,135 @@
+.registro {
+    width: 100%;
+    color: white;
+}
+
+.registro h2 {
+    margin: 0 0 8px;
+
+    color: white;
+
+    font-size: 28px;
+    text-align: center;
+}
+
+.registro .campo {
+    margin-bottom: 15px;
+}
+
+.registro .campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #dddddd;
+
+    font-size: 13px;
+}
+
+.registro .campo input {
+    width: 100%;
+    height: 42px;
+
+    box-sizing: border-box;
+
+    padding: 0 13px;
+
+    border: 1px solid #333333;
+    border-radius: 7px;
+
+    background-color: #101010;
+
+    color: white;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.registro .campo input:focus {
+    border-color: #ff711f;
+
+    box-shadow: 0 0 0 2px rgba(255, 113, 31, 0.12);
+}
+
+.registro .campo input::placeholder {
+    color: #666666;
+}
+
+.btn-registrarse {
+    width: 100%;
+    height: 45px;
+
+    margin-top: 8px;
+
+    border: none;
+    border-radius: 7px;
+
+    background-color: #ff711f;
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-registrarse:hover {
+    background-color: #ff8a45;
+
+    transform: translateY(-1px);
+}
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 500px) {
+
+    .registro h2 {
+        font-size: 24px;
+    }
+
+    .registro .subtitulo {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .registro .campo {
+        margin-bottom: 12px;
+    }
+
+    .registro .campo label {
+        font-size: 12px;
+    }
+
+    .registro .campo input {
+        height: 40px;
+        font-size: 13px;
+    }
+
+    .btn-registrarse {
+        height: 43px;
+        font-size: 11px;
+    }
+
+}
+
+
+@media (max-width: 360px) {
+
+    .registro h2 {
+        font-size: 22px;
+    }
+
+    .registro .subtitulo {
+        font-size: 12px;
+    }
+
+    .registro .campo input {
+        height: 38px;
+    }
+
+}

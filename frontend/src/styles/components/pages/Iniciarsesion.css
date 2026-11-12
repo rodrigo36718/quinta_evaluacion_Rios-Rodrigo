@@ -1,0 +1,179 @@
+.inicio-sesion {
+    width: 100%;
+    color: white;
+}
+
+.inicio-sesion h2 {
+    margin: 0 0 8px;
+
+    color: white;
+
+    font-size: 28px;
+    text-align: center;
+}
+
+.campo {
+    margin-bottom: 18px;
+}
+
+.campo label {
+    display: block;
+
+    margin-bottom: 7px;
+
+    color: #dddddd;
+
+    font-size: 13px;
+}
+
+.campo input {
+    width: 100%;
+    height: 45px;
+
+    box-sizing: border-box;
+
+    padding: 0 13px;
+
+    border: 1px solid #333333;
+    border-radius: 7px;
+
+    background-color: #101010;
+
+    color: white;
+
+    font-size: 14px;
+
+    outline: none;
+}
+
+.campo input:focus {
+    border-color: #ff711f;
+
+    box-shadow: 0 0 0 2px rgba(255, 113, 31, 0.12);
+}
+
+.campo input::placeholder {
+    color: #666666;
+}
+
+.btn-iniciar {
+    width: 100%;
+    height: 45px;
+
+    margin-top: 5px;
+
+    border: none;
+    border-radius: 7px;
+
+    background-color: #ff711f;
+
+    color: white;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-iniciar:hover {
+    background-color: #ff8a45;
+
+    transform: translateY(-1px);
+}
+
+.texto-registro {
+    margin: 22px 0 8px;
+
+    color: #888888;
+
+    font-size: 13px;
+    text-align: center;
+}
+
+.btn-crear-cuenta {
+    width: 100%;
+    height: 42px;
+
+    border: 1px solid #ff711f;
+    border-radius: 7px;
+
+    background-color: transparent;
+
+    color: #ff711f;
+
+    font-size: 12px;
+    font-weight: bold;
+
+    cursor: pointer;
+
+    transition: 0.2s;
+}
+
+.btn-crear-cuenta:hover {
+    background-color: #ff711f;
+
+    color: white;
+}
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (max-width: 500px) {
+
+    .inicio-sesion h2 {
+        font-size: 24px;
+    }
+
+    .subtitulo {
+        font-size: 13px;
+        margin-bottom: 20px;
+    }
+
+    .campo {
+        margin-bottom: 15px;
+    }
+
+    .campo label {
+        font-size: 12px;
+    }
+
+    .campo input {
+        height: 43px;
+        font-size: 13px;
+    }
+
+    .btn-iniciar {
+        height: 43px;
+        font-size: 11px;
+    }
+
+    .texto-registro {
+        font-size: 12px;
+        margin-top: 18px;
+    }
+
+    .btn-crear-cuenta {
+        height: 40px;
+        font-size: 11px;
+    }
+
+}
+
+
+@media (max-width: 360px) {
+
+    .inicio-sesion h2 {
+        font-size: 22px;
+    }
+
+    .subtitulo {
+        font-size: 12px;
+    }
+
+    .campo input {
+        height: 40px;
+    }
+
+}
